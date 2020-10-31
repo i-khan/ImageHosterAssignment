@@ -45,9 +45,11 @@ public class ImageController {
     //Also now you need to add the tags of an image in the Model type object
     //Here a list of tags is added in the Model type object
     //this list is then sent to 'images/image.html' file and the tags are displayed
-    @RequestMapping("/images/{title}")
-    public String showImage(@PathVariable("title") String title, Model model) {
-        Image image = imageService.getImageByTitle(title);
+    //adding image id here as request mapping as well so our request to /images/id/title will be captured and this controller will be called
+    @RequestMapping("/images/{id}/{title}")
+    public String showImage(@PathVariable("id") Integer id, @PathVariable("title") String title, Model model) {
+        // this method will take id as input and return image for that id
+        Image image = imageService.getImageById(id);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
         return "images/image";
