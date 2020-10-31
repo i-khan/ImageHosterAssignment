@@ -1,5 +1,6 @@
 package ImageHoster.controller;
 
+import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -52,6 +54,7 @@ public class ImageController {
         Image image = imageService.getImageById(id);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", image.getComments());
         return "images/image";
     }
 
@@ -173,6 +176,21 @@ public class ImageController {
         }
     }
 
+
+    //This method will save comments for this image and redirect user to image page again
+    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
+    public String saveComment(@PathVariable("imageId") Integer id, @PathVariable("imageTitle") String title,@RequestParam("comment") String commentText, Model model, HttpSession session) {
+        // this method will take id as input and return image for that id
+        Image image = imageService.getImageById(id);
+        User user = (User) session.getAttribute("loggeduser");
+        Comment comment = new Comment();
+        comment.setText(commentText);
+        comment.setUser(user);
+        comment.setImage(image);
+        comment.setCreatedDate(new Date());
+        imageService.saveComment(comment);
+        return "redirect:/images/" + id + "/" + title;
+    }
 
     //This method converts the image to Base64 format
     private String convertUploadedFileToBase64(MultipartFile file) throws IOException {
