@@ -10,10 +10,10 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/imageHoster"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/imageHoster"/> <!-- this is connection string for connecting to database -->
 
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/> <!-- this is username for postgres database -->
+            <property name="javax.persistence.jdbc.password" value="12345S!x"/> <!-- this is password for postgres database -->
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
