@@ -2,6 +2,8 @@ package ImageHoster.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 
 //@Entity annotation specifies that the corresponding class is a JPA entity
@@ -76,8 +78,8 @@ public class Comment {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public User getUser() {
